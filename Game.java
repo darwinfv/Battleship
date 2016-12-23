@@ -1062,7 +1062,7 @@ public class Game {
 
             }
         });
-        boardPane.add(player63);
+        boardPane.add(player63);*/
 
         JPanel pane = new JPanel(new GridBagLayout());
         pane.setBackground(new Color(0, 250, 0));
