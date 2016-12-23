@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 
 public class Game {
 
+    //The string which tells us the status of the game
+    static String game;
+
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
@@ -18,8 +21,7 @@ public class Game {
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //The string which tells us the status of the game
-        String game = "init"; //Init means the board is being setup
+        game = "init"; //Init means the board is being setup
 
         //String array with the symbol for each button (status)
         String[] symbol = new String[64];
@@ -56,12 +58,16 @@ public class Game {
             boardPane.add(player[i]);
         }
 
-        //Button Listener's
+        //Button listener's for player's board
         player[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[0].setBackground(new Color(212, 15, 15));
-                    
+                    game = "two";
+                    int[] n = findButton(0);
+                    for(int i = 0; i < n.length; i++) {
+                        player[n[i]].setBackground(new Color(255, 107, 104));
+                    }
                 }
             }
         });
@@ -524,6 +530,55 @@ public class Game {
         jf.add(pane);
         jf.setVisible(true);
 
+    }
+
+    //The method which returns the possible buttons for placing your ship when the player has selected a single button
+    public static int[] findButton(int a) {
+        if (a == 0) {
+            int[] n = new int[2];
+            n[0] = a + 1;
+            n[1] = a + 8;
+            return n;
+        }
+        if (a > 0 && a < 7) {
+            int[] n = new int[1];
+            n[0] = a + 8;
+            return n;
+        }
+        if (a == 7) {
+            int[] n = new int[2];
+            n[0] = a - 1;
+            n[1] = a + 8;
+            return n;
+        }
+        if (a == 8 || a == 16 || a == 24 || a == 32 || a == 40 || a == 48) {
+            int[] n = new int[1];
+            n[0] = a + 1;
+            return n;
+        }
+        if (a == 15 || a == 23 || a == 31 || a == 39 || a == 47 || a == 55) {
+            int[] n = new int[1];
+            n[0] = a - 1;
+            return n;
+        }
+        if (a == 56) {
+            int[] n = new int[2];
+            n[0] = a - 8;
+            n[1] = a + 1;
+            return n;
+        }
+        if (a > 56 && a < 63) {
+            int[] n = new int[1];
+            n[0] = a - 8;
+            return n;
+        }
+        if (a == 63) {
+            int[] n = new int[2];
+            n[0] = a - 8;
+            n[1] = a - 1;
+            return n;
+        }
+        return null;
     }
 
 }
