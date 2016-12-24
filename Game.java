@@ -41,6 +41,7 @@ public class Game {
         game = "init";
         //init means the board is being setup
         //twopart means the user has clicked a button for the first time and a ship will be placed there
+        //three means the the second ship is going to be placed next
 
         initialize();
         listenPlayer();
@@ -168,588 +169,345 @@ public class Game {
 
     }
 
+    //The method which does the actual work when a button is clicked
+    public static void buttonWork(int buttonNumber) {
+
+        if(game.equals("init")) {
+            player[buttonNumber].setBackground(new Color(212, 15, 15));
+            game = "twopart";
+            highlight(buttonNumber);
+        }
+        if(game.equals("twopart") && (player[buttonNumber].getBackground()).equals(new Color(255, 107, 104))) {
+            player[buttonNumber].setBackground(new Color(212, 15, 15));
+            game = "three";
+        }
+        
+
+    }
+
     //The method which creates the listener's for the player's buttons
     public static void listenPlayer() {
 
         player[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[0].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(0);
-                }
-                if(game.equals("twopart") && (player[0].getBackground()).equals(new Color(255, 107, 104))) {
-                    player[0].setBackground(new Color(212, 15, 15));
-                }
+                buttonWork(0);
             }
         });
         player[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[1].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(1);
-                }
+                buttonWork(1);
             }
         });
         player[2].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[2].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(2);
-                }
+                buttonWork(2);
             }
         });
         player[3].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[3].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(3);
-                }
+                buttonWork(3);
             }
         });
         player[4].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[4].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(4);
-                }
+                buttonWork(4);
             }
         });
         player[5].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[5].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(5);
-                }
+                buttonWork(5);
             }
         });
         player[6].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[6].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(6);
-                }
+                buttonWork(6);
             }
         });
 
         player[7].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[7].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(7);
-                }
+                buttonWork(7);
             }
         });
         player[8].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[8].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(8);
-                }
+                buttonWork(8);
             }
         });
 
         player[9].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[9].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(9);
-                }
+                buttonWork(9);
             }
         });
         player[10].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[10].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(10);
-                }
+                buttonWork(10);
             }
         });
         player[11].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[11].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(11);
-                }
+                buttonWork(11);
             }
         });
         player[12].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[12].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(12);
-                }
+                buttonWork(12);
             }
         });
         player[13].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[13].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(13);
-                }
+                buttonWork(13);
             }
         });
         player[14].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[14].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(14);
-                }
+                buttonWork(14);
             }
         });
         player[15].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[15].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(15);
-                }
+                buttonWork(15);
             }
         });
         player[16].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[16].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(16);
-                }
+                buttonWork(16);
             }
         });
         player[17].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[17].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(17);
-                }
+                buttonWork(17);
             }
         });
         player[18].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[18].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(18);
-                }
+                buttonWork(18);
             }
         });
         player[19].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[19].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(19);
-                }
+                buttonWork(19);
             }
         });
         player[20].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[20].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(20);
-                }
+                buttonWork(20);
             }
         });
         player[21].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[21].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(21);
-                }
+                buttonWork(21);
             }
         });
         player[22].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[22].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(22);
-                }
+                buttonWork(22);
             }
         });
         player[23].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[23].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(23);
-                }
+                buttonWork(23);
             }
         });
         player[24].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[24].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(24);
-                }
+                buttonWork(24);
             }
         });
         player[25].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[25].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(25);
-                }
+                buttonWork(25);
             }
         });
         player[26].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[26].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(26);
-                }
+                buttonWork(26);
             }
         });
         player[27].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[27].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(27);
-                }
+                buttonWork(27);
             }
         });
         player[28].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[28].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(28);
-                }
+                buttonWork(28);
             }
         });
         player[29].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[29].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(29);
-                }
+                buttonWork(29);
             }
         });
         player[30].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[30].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(30);
-                }
+                buttonWork(30);
             }
         });
         player[31].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[31].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(31);
-                }
+                buttonWork(31);
             }
         });
         player[32].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[32].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(32);
-                }
+                buttonWork(32);
             }
         });
         player[33].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[33].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(33);
-                }
+                buttonWork(33);
             }
         });
         player[34].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[34].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(34);
-                }
+                buttonWork(34);
             }
         });
         player[35].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[35].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(35);
-                }
+                buttonWork(35);
             }
         });
         player[36].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[36].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(36);
-                }
+                buttonWork(36);
             }
         });
         player[37].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[37].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(37);
-                }
+                buttonWork(37);
             }
         });
         player[38].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[38].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(38);
-                }
+                buttonWork(38);
             }
         });
         player[39].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[39].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(39);
-                }
+                buttonWork(39);
             }
         });
         player[40].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[40].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(40);
-                }
+               buttonWork(40);
             }
         });
         player[41].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[41].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(41);
-                }
+                buttonWork(41);
             }
         });
         player[42].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[42].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(42);
-                }
+                buttonWork(42);
             }
         });
         player[43].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[43].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(43);
-                }
+                buttonWork(43);
             }
         });
         player[44].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[44].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(44);
-                }
+                buttonWork(44);
             }
         });
         player[45].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[45].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(45);
-                }
+                buttonWork(45);
             }
         });
         player[46].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[46].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(46);
-                }
+                buttonWork(46);
             }
         });
         player[47].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[47].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(47);
-                }
+                buttonWork(47);
             }
         });
         player[48].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[48].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(48);
-                }
+                buttonWork(48);
             }
         });
         player[49].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[49].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(49);
-                }
+                buttonWork(49);
             }
         });
         player[50].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[50].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(50);
-                }
+                buttonWork(50);
             }
         });
         player[51].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[51].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(51);
-                }
+                buttonWork(51);
             }
         });
         player[52].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[52].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(52);
-                }
+                buttonWork(52);
             }
         });
         player[53].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[53].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(53);
-                }
+                buttonWork(53);
             }
         });
         player[54].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[54].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(54);
-                }
+                buttonWork(54);
             }
         });
         player[55].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[55].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(55);
-                }
+                buttonWork(55);
             }
         });
         player[56].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[56].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(56);
-                }
+                buttonWork(56);
             }
         });
         player[57].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[57].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(57);
-                }
+                buttonWork(57);
             }
         });
         player[58].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[58].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(58);
-                }
+                buttonWork(58);
             }
         });
         player[59].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[59].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(59);
-                }
+                buttonWork(59);
             }
         });
         player[60].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[60].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(60);
-                }
+                buttonWork(60);
             }
         });
         player[61].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[61].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(61);
-                }
+                buttonWork(61);
             }
         });
         player[62].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[62].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(62);
-                }
+                buttonWork(62);
             }
         });
         player[63].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(game.equals("init")) {
-                    player[63].setBackground(new Color(212, 15, 15));
-                    game = "twopart";
-                    highlight(63);
-                }
+                buttonWork(63);
             }
         });
 
