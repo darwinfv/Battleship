@@ -42,6 +42,7 @@ public class Game {
         //init means the board is being setup
         //twopart means the user has clicked a button for the first time and a ship will be placed there
         //three means the the second ship is going to be placed next
+        //threepart means that one end of the ship of length 3 has been placed
 
         initialize();
         listenPlayer();
@@ -96,6 +97,7 @@ public class Game {
     //The method which returns the possible buttons for placing your ship of length 2 when the player has selected a
     // single button
     public static int[] findButton2(int a) {
+
         if (a == 0) {
             int[] n = new int[2];
             n[0] = a + 1;
@@ -157,12 +159,83 @@ public class Game {
 
     }
 
+    //The method which returns the possible button for placing your ship of length 3 when the player has selected a
+    // single button
+    public static int[] findButton3(int a) {
+
+        if (a == 0) {
+            int[] n = new int[2];
+            n[0] = a + 2;
+            n[1] = a + 16;
+            return n;
+        }
+        if (a > 0 && a < 7) {
+            int[] n = new int[3];
+            n[0] = a + 16;
+            n[1] = a - 2;
+            n[2] = a + 2;
+            return n;
+        }
+        if (a == 7) {
+            int[] n = new int[2];
+            n[0] = a - 2;
+            n[1] = a + 16;
+            return n;
+        }
+        if (a == 8 || a == 16 || a == 24 || a == 32 || a == 40 || a == 48) {
+            int[] n = new int[3];
+            n[0] = a + 2;
+            n[1] = a - 16;
+            n[2] = a + 16;
+            return n;
+        }
+        if (a == 15 || a == 23 || a == 31 || a == 39 || a == 47 || a == 55) {
+            int[] n = new int[3];
+            n[0] = a - 2;
+            n[1] = a - 16;
+            n[2] = a + 16;
+            return n;
+        }
+        if (a == 56) {
+            int[] n = new int[2];
+            n[0] = a - 16;
+            n[1] = a + 2;
+            return n;
+        }
+        if (a > 56 && a < 63) {
+            int[] n = new int[3];
+            n[0] = a - 16;
+            n[1] = a - 2;
+            n[2] = a + 2;
+            return n;
+        }
+        if (a == 63) {
+            int[] n = new int[2];
+            n[0] = a - 16;
+            n[1] = a - 2;
+            return n;
+        }
+        int[] n = new int[4];
+        n[0] = a - 16;
+        n[1] = a - 2;
+        n[2] = a + 2;
+        n[3] = a + 16;
+        return n;
+
+    }
+
     //The method which invokes the appropriate findButton for the ship based on the game status
     public static void highlight(int a) {
 
         if(game.equals("twopart")) {
             int[] n = findButton2(a);
             for(int i = 0; i < n.length; i++) {
+                player[n[i]].setBackground(new Color(255, 107, 104));
+            }
+        }
+        if(game.equals("threepart")) {
+            int[] n = findButton3(a);
+            for (int i = 0; i < n.length; i++) {
                 player[n[i]].setBackground(new Color(255, 107, 104));
             }
         }
@@ -180,8 +253,17 @@ public class Game {
         if(game.equals("twopart") && (player[buttonNumber].getBackground()).equals(new Color(255, 107, 104))) {
             player[buttonNumber].setBackground(new Color(212, 15, 15));
             game = "three";
+            for (int i = 0; i < 64; i++) {
+                if((player[i].getBackground()).equals(new Color(255, 107, 104))) {
+                    player[i].setBackground(null);
+                }
+            }
         }
-        
+        if(game.equals("three")) {
+            player[buttonNumber].setBackground(new Color(212, 15, 15));
+            game = "threepart";
+            highlight(buttonNumber);
+        }
 
     }
 
