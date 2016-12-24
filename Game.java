@@ -38,9 +38,11 @@ public class Game {
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        game = "init"; //Init means the board is being setup
-        initialize();
+        game = "init";
+        //nit means the board is being setup
+        //twopart means the user has clicked a button for the first time and a ship will be placed there
 
+        initialize();
         listenPlayer();
 
         //Main pane
@@ -90,8 +92,9 @@ public class Game {
 
     }
 
-    //The method which returns the possible buttons for placing your ship when the player has selected a single button
-    public static int[] findButton(int a) {
+    //The method which returns the possible buttons for placing your ship of length 2 when the player has selected a
+    // single button
+    public static int[] findButton2(int a) {
         if (a == 0) {
             int[] n = new int[2];
             n[0] = a + 1;
@@ -99,8 +102,10 @@ public class Game {
             return n;
         }
         if (a > 0 && a < 7) {
-            int[] n = new int[1];
+            int[] n = new int[3];
             n[0] = a + 8;
+            n[1] = a - 1;
+            n[2] = a + 1;
             return n;
         }
         if (a == 7) {
@@ -110,13 +115,17 @@ public class Game {
             return n;
         }
         if (a == 8 || a == 16 || a == 24 || a == 32 || a == 40 || a == 48) {
-            int[] n = new int[1];
+            int[] n = new int[3];
             n[0] = a + 1;
+            n[1] = a - 8;
+            n[2] = a + 8;
             return n;
         }
         if (a == 15 || a == 23 || a == 31 || a == 39 || a == 47 || a == 55) {
-            int[] n = new int[1];
+            int[] n = new int[3];
             n[0] = a - 1;
+            n[1] = a - 8;
+            n[2] = a + 8;
             return n;
         }
         if (a == 56) {
@@ -126,8 +135,10 @@ public class Game {
             return n;
         }
         if (a > 56 && a < 63) {
-            int[] n = new int[1];
+            int[] n = new int[3];
             n[0] = a - 8;
+            n[1] = a - 1;
+            n[2] = a + 1;
             return n;
         }
         if (a == 63) {
@@ -136,7 +147,25 @@ public class Game {
             n[1] = a - 1;
             return n;
         }
-        return null;
+        int[] n = new int[4];
+        n[0] = a - 8;
+        n[1] = a - 1;
+        n[2] = a + 1;
+        n[3] = a + 8;
+        return n;
+
+    }
+
+    //The method which invokes the appropriate findButton for the ship based on the game status
+    public static void highlight(int a) {
+
+        if(game.equals("twopart")) {
+            int[] n = findButton2(a);
+            for(int i = 0; i < n.length; i++) {
+                player[n[i]].setBackground(new Color(255, 107, 104));
+            }
+        }
+
     }
 
     //The method which creates the listener's for the player's buttons
@@ -146,11 +175,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[0].setBackground(new Color(212, 15, 15));
-                    game = "two";
-                    int[] n = findButton(0);
-                    for(int i = 0; i < n.length; i++) {
-                        player[n[i]].setBackground(new Color(255, 107, 104));
-                    }
+                    game = "twopart";
+                    highlight(0);
                 }
             }
         });
@@ -158,6 +184,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[1].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(1);
                 }
             }
         });
@@ -165,6 +193,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[2].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(2);
                 }
             }
         });
@@ -172,6 +202,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[3].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(3);
                 }
             }
         });
@@ -179,6 +211,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[4].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(4);
                 }
             }
         });
@@ -186,6 +220,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[5].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(5);
                 }
             }
         });
@@ -193,6 +229,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[6].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(6);
                 }
             }
         });
@@ -201,6 +239,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[7].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(7);
                 }
             }
         });
@@ -208,6 +248,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[8].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(8);
                 }
             }
         });
@@ -216,6 +258,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[9].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(9);
                 }
             }
         });
@@ -223,6 +267,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[10].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(10);
                 }
             }
         });
@@ -230,6 +276,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[11].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(11);
                 }
             }
         });
@@ -237,6 +285,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[12].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(12);
                 }
             }
         });
@@ -244,6 +294,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[13].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(13);
                 }
             }
         });
@@ -251,6 +303,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[14].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(14);
                 }
             }
         });
@@ -258,6 +312,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[15].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(15);
                 }
             }
         });
@@ -265,6 +321,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[16].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(16);
                 }
             }
         });
@@ -272,6 +330,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[17].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(17);
                 }
             }
         });
@@ -279,6 +339,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[18].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(18);
                 }
             }
         });
@@ -286,6 +348,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[19].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(19);
                 }
             }
         });
@@ -293,6 +357,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[20].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(20);
                 }
             }
         });
@@ -300,6 +366,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[21].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(21);
                 }
             }
         });
@@ -307,6 +375,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[22].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(22);
                 }
             }
         });
@@ -314,6 +384,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[23].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(23);
                 }
             }
         });
@@ -321,6 +393,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[24].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(24);
                 }
             }
         });
@@ -328,6 +402,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[25].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(25);
                 }
             }
         });
@@ -335,6 +411,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[26].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(26);
                 }
             }
         });
@@ -342,6 +420,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[27].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(27);
                 }
             }
         });
@@ -349,6 +429,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[28].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(28);
                 }
             }
         });
@@ -356,6 +438,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[29].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(29);
                 }
             }
         });
@@ -363,6 +447,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[30].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(30);
                 }
             }
         });
@@ -370,6 +456,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[31].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(31);
                 }
             }
         });
@@ -377,6 +465,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[32].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(32);
                 }
             }
         });
@@ -384,6 +474,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[33].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(33);
                 }
             }
         });
@@ -391,6 +483,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[34].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(34);
                 }
             }
         });
@@ -398,6 +492,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[35].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(35);
                 }
             }
         });
@@ -405,6 +501,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[36].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(36);
                 }
             }
         });
@@ -412,6 +510,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[37].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(37);
                 }
             }
         });
@@ -419,6 +519,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[38].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(38);
                 }
             }
         });
@@ -426,6 +528,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[39].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(39);
                 }
             }
         });
@@ -433,6 +537,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[40].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(40);
                 }
             }
         });
@@ -440,6 +546,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[41].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(41);
                 }
             }
         });
@@ -447,6 +555,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[42].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(42);
                 }
             }
         });
@@ -454,6 +564,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[43].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(43);
                 }
             }
         });
@@ -461,6 +573,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[44].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(44);
                 }
             }
         });
@@ -468,6 +582,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[45].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(45);
                 }
             }
         });
@@ -475,6 +591,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[46].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(46);
                 }
             }
         });
@@ -482,6 +600,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[47].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(47);
                 }
             }
         });
@@ -489,6 +609,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[48].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(48);
                 }
             }
         });
@@ -496,6 +618,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[49].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(49);
                 }
             }
         });
@@ -503,6 +627,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[50].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(50);
                 }
             }
         });
@@ -510,6 +636,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[51].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(51);
                 }
             }
         });
@@ -517,6 +645,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[52].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(52);
                 }
             }
         });
@@ -524,6 +654,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[53].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(53);
                 }
             }
         });
@@ -531,6 +663,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[54].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(54);
                 }
             }
         });
@@ -538,6 +672,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[55].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(55);
                 }
             }
         });
@@ -545,6 +681,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[56].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(56);
                 }
             }
         });
@@ -552,6 +690,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[57].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(57);
                 }
             }
         });
@@ -559,6 +699,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[58].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(58);
                 }
             }
         });
@@ -566,6 +708,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[59].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(59);
                 }
             }
         });
@@ -573,6 +717,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[60].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(60);
                 }
             }
         });
@@ -580,6 +726,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[61].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(61);
                 }
             }
         });
@@ -587,6 +735,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[62].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(62);
                 }
             }
         });
@@ -594,6 +744,8 @@ public class Game {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
                     player[63].setBackground(new Color(212, 15, 15));
+                    game = "twopart";
+                    highlight(63);
                 }
             }
         });
