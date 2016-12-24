@@ -39,7 +39,7 @@ public class Game {
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         game = "init";
-        //nit means the board is being setup
+        //init means the board is being setup
         //twopart means the user has clicked a button for the first time and a ship will be placed there
 
         initialize();
@@ -177,6 +177,9 @@ public class Game {
                     player[0].setBackground(new Color(212, 15, 15));
                     game = "twopart";
                     highlight(0);
+                }
+                if(game.equals("twopart") && (player[0].getBackground()).equals(new Color(255, 107, 104))) {
+                    player[0].setBackground(new Color(212, 15, 15));
                 }
             }
         });
