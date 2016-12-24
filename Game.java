@@ -31,6 +31,18 @@ public class Game {
     //Reusable border
     static Border border;
 
+    //The color of a button with a ship of length 2 on it
+    final static Color RED = new Color(250, 55, 52);
+
+    //The color of a button with the first ship of length 3 on it
+    final static Color RED2 = new Color(202, 0, 7);
+
+    //The color a a button which can potentially have the remaining parts of a ship placed there
+    final static Color PINK = new Color(255, 107, 104);
+
+    //The button with one end of the ship
+    static int end;
+
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
@@ -166,53 +178,53 @@ public class Game {
     // single button
     public static int[] findButton3(int a) {
 
-        if (a < 2 || a == 8) {
+        if (a == 0 || a == 1 || a == 8 || a == 9) {
             int[] n = new int[2];
             n[0] = a + 2;
             n[1] = a + 16;
             return n;
         }
-        if (a > 1 && a < 6) {
+        if ((a > 1 && a < 6) || (a > 9 && a < 14)) {
             int[] n = new int[3];
             n[0] = a + 16;
             n[1] = a - 2;
             n[2] = a + 2;
             return n;
         }
-        if (a == 7 || a == 6 || a == 15) {
+        if (a == 6 || a == 7 || a == 14 || a == 15) {
             int[] n = new int[2];
             n[0] = a - 2;
             n[1] = a + 16;
             return n;
         }
-        if (a == 16 || a == 24 || a == 32 || a == 40) {
+        if (a == 16 || a == 24 || a == 32 || a == 40 || a == 17 || a == 25 || a == 33 || a == 41) {
             int[] n = new int[3];
             n[0] = a + 2;
             n[1] = a - 16;
             n[2] = a + 16;
             return n;
         }
-        if (a == 23 || a == 31 || a == 39 || a == 47) {
+        if (a == 23 || a == 31 || a == 39 || a == 47 || a == 22 || a == 30 || a == 38 || a == 46) {
             int[] n = new int[3];
             n[0] = a - 2;
             n[1] = a - 16;
             n[2] = a + 16;
             return n;
         }
-        if (a == 48 || a == 56 || a == 57) {
+        if (a == 48 || a == 49 || a == 56 || a == 57) {
             int[] n = new int[2];
             n[0] = a - 16;
             n[1] = a + 2;
             return n;
         }
-        if (a > 57 && a < 62) {
+        if ((a > 49 && a < 54) || (a > 57 && a < 62)) {
             int[] n = new int[3];
             n[0] = a - 16;
             n[1] = a - 2;
             n[2] = a + 2;
             return n;
         }
-        if (a > 61 || a == 55) {
+        if (a == 54 || a == 55 || a == 62 || a == 63) {
             int[] n = new int[2];
             n[0] = a - 16;
             n[1] = a - 2;
@@ -233,13 +245,36 @@ public class Game {
         if(game.equals("twopart")) {
             int[] n = findButton2(a);
             for(int i = 0; i < n.length; i++) {
-                player[n[i]].setBackground(new Color(255, 107, 104));
+                player[n[i]].setBackground(PINK);
             }
         }
         if(game.equals("threepart") || game.equals("thirdpart")) {
             int[] n = findButton3(a);
+            int possibleCounter = n.length;
             for (int i = 0; i < n.length; i++) {
-                player[n[i]].setBackground(new Color(255, 107, 104));
+                if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
+                        !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) /
+                        2].getBackground())) {
+                    player[n[i]].setBackground(PINK);
+                }
+                else {
+                    possibleCounter--;
+                }
+            }
+            if(possibleCounter == 0) {
+                if(game.equals("threepart")) {
+                    for (int i = 0; i < 64; i++) {
+                        if(RED2.equals(player[i].getBackground())) {
+                            player[i].setBackground(null);
+                        }
+                    }
+                }
+                if(game.equals("thirdpart")) {
+                    for (int i = 0; i < 64; i++) {
+
+                    }
+                }
+                game = game.substring(0, 5);
             }
         }
 
@@ -249,43 +284,44 @@ public class Game {
     public static void buttonWork(int buttonNumber) {
 
         if(game.equals("init")) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+            player[buttonNumber].setBackground(RED);
             game = "twopart";
             highlight(buttonNumber);
         }
-        else if(game.equals("twopart") && (player[buttonNumber].getBackground()).equals(new Color(255, 107, 104))) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+        else if(game.equals("twopart") && PINK.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED);
             game = "three";
             for (int i = 0; i < 64; i++) {
-                if((player[i].getBackground()).equals(new Color(255, 107, 104))) {
+                if(PINK.equals(player[i].getBackground())) {
                     player[i].setBackground(null);
                 }
             }
         }
-        else if(game.equals("three")) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+        else if(game.equals("three") && !RED.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED2);
+            end = buttonNumber;
             game = "threepart";
             highlight(buttonNumber);
         }
-        else if(game.equals("threepart") && (player[buttonNumber].getBackground()).equals(new Color(255, 107, 104))) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+        else if(game.equals("threepart") && PINK.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED2);
             game = "third";
             for (int i = 0; i < 64; i++) {
-                if((player[i].getBackground()).equals(new Color(255, 107, 104))) {
+                if(PINK.equals(player[i].getBackground())) {
                     player[i].setBackground(null);
                 }
             }
         }
         else if(game.equals("third")) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+            player[buttonNumber].setBackground(RED);
             game = "thirdpart";
             highlight(buttonNumber);
         }
-        else if(game.equals("thirdpart") && (player[buttonNumber].getBackground()).equals(new Color(255, 107, 104))) {
-            player[buttonNumber].setBackground(new Color(212, 15, 15));
+        else if(game.equals("thirdpart") && PINK.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED);
             game = "four";
             for (int i = 0; i < 64; i++) {
-                if((player[i].getBackground()).equals(new Color(255, 107, 104))) {
+                if(PINK.equals(player[i].getBackground())) {
                     player[i].setBackground(null);
                 }
             }
