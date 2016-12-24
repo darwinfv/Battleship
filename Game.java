@@ -13,31 +13,63 @@ public class Game {
     //The string which tells us the status of the game
     static String game;
 
+    //The main frame (game screen)
+    static JFrame jf = new JFrame("Battleship");
+
+    //Opponent's board
+    static JPanel opponentPane = new JPanel(new GridLayout(8, 8));
+
+    //Opponent's buttons
+    static JButton[] opponent = new JButton[64];
+
+    //Player's board
+    static JPanel boardPane = new JPanel(new GridLayout(8, 8));
+
+    //Player's buttons
+    static JButton[] player = new JButton[64];
+
+    //Reusable border
+    static Border border;
+
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
-        JFrame jf = new JFrame("Battleship");
         jf.setSize(800, 500);
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         game = "init"; //Init means the board is being setup
+        initialize();
 
-        //String array with the symbol for each button (status)
-        String[] symbol = new String[64];
-        for (int i = 0; i < 64; i++) {
-            symbol[i] = " ";
-        }
+        listenPlayer();
 
-        //Opponent's board
-        JPanel opponentPane = new JPanel(new GridLayout(8, 8));
-        Border border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(200, 0, 0));
+        //Main pane
+        JPanel pane = new JPanel(new GridBagLayout());
+        pane.setBackground(new Color(0, 250, 0));
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.gridy = c.gridx = 0;
+        c.ipady = 100;
+        pane.add(opponentPane, c);
+        c.gridx++;
+        pane.add(boardPane, c);
+
+        //Ending code for frame
+        jf.add(pane);
+        jf.setVisible(true);
+
+    }
+
+    //The method which creates the game setup
+    public static void initialize() {
+
+        //Setup opponent's border
+        border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(200, 0, 0));
         opponentPane.setBorder(border);
 
-        //Opponent's buttons
-        JButton[] opponent = new JButton[64];
+        //Setup opponent's button
         for(int i = 0; i < 64; i++) {
-            opponent[i] = new JButton(symbol[i]);
+            opponent[i] = new JButton(" ");
             opponent[i].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
@@ -46,19 +78,70 @@ public class Game {
             opponentPane.add(opponent[i]);
         }
 
-        //Player's board
-        JPanel boardPane = new JPanel(new GridLayout(8, 8));
+        //Setup player's border
         border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(0, 200, 220));
         boardPane.setBorder(border);
 
-        //Player's buttons
-        JButton[] player = new JButton[64];
+        //Setup player's buttons
         for(int i = 0; i < 64; i++) {
-            player[i] = new JButton(symbol[i]);
+            player[i] = new JButton(" ");
             boardPane.add(player[i]);
         }
 
-        //Button listener's for player's board
+    }
+
+    //The method which returns the possible buttons for placing your ship when the player has selected a single button
+    public static int[] findButton(int a) {
+        if (a == 0) {
+            int[] n = new int[2];
+            n[0] = a + 1;
+            n[1] = a + 8;
+            return n;
+        }
+        if (a > 0 && a < 7) {
+            int[] n = new int[1];
+            n[0] = a + 8;
+            return n;
+        }
+        if (a == 7) {
+            int[] n = new int[2];
+            n[0] = a - 1;
+            n[1] = a + 8;
+            return n;
+        }
+        if (a == 8 || a == 16 || a == 24 || a == 32 || a == 40 || a == 48) {
+            int[] n = new int[1];
+            n[0] = a + 1;
+            return n;
+        }
+        if (a == 15 || a == 23 || a == 31 || a == 39 || a == 47 || a == 55) {
+            int[] n = new int[1];
+            n[0] = a - 1;
+            return n;
+        }
+        if (a == 56) {
+            int[] n = new int[2];
+            n[0] = a - 8;
+            n[1] = a + 1;
+            return n;
+        }
+        if (a > 56 && a < 63) {
+            int[] n = new int[1];
+            n[0] = a - 8;
+            return n;
+        }
+        if (a == 63) {
+            int[] n = new int[2];
+            n[0] = a - 8;
+            n[1] = a - 1;
+            return n;
+        }
+        return null;
+    }
+
+    //The method which creates the listener's for the player's buttons
+    public static void listenPlayer() {
+
         player[0].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(game.equals("init")) {
@@ -515,70 +598,6 @@ public class Game {
             }
         });
 
-        //Main pane
-        JPanel pane = new JPanel(new GridBagLayout());
-        pane.setBackground(new Color(0, 250, 0));
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.gridy = c.gridx = 0;
-        c.ipady = 100;
-        pane.add(opponentPane, c);
-        c.gridx++;
-        pane.add(boardPane, c);
-
-        //Ending code for frame
-        jf.add(pane);
-        jf.setVisible(true);
-
-    }
-
-    //The method which returns the possible buttons for placing your ship when the player has selected a single button
-    public static int[] findButton(int a) {
-        if (a == 0) {
-            int[] n = new int[2];
-            n[0] = a + 1;
-            n[1] = a + 8;
-            return n;
-        }
-        if (a > 0 && a < 7) {
-            int[] n = new int[1];
-            n[0] = a + 8;
-            return n;
-        }
-        if (a == 7) {
-            int[] n = new int[2];
-            n[0] = a - 1;
-            n[1] = a + 8;
-            return n;
-        }
-        if (a == 8 || a == 16 || a == 24 || a == 32 || a == 40 || a == 48) {
-            int[] n = new int[1];
-            n[0] = a + 1;
-            return n;
-        }
-        if (a == 15 || a == 23 || a == 31 || a == 39 || a == 47 || a == 55) {
-            int[] n = new int[1];
-            n[0] = a - 1;
-            return n;
-        }
-        if (a == 56) {
-            int[] n = new int[2];
-            n[0] = a - 8;
-            n[1] = a + 1;
-            return n;
-        }
-        if (a > 56 && a < 63) {
-            int[] n = new int[1];
-            n[0] = a - 8;
-            return n;
-        }
-        if (a == 63) {
-            int[] n = new int[2];
-            n[0] = a - 8;
-            n[1] = a - 1;
-            return n;
-        }
-        return null;
     }
 
 }
