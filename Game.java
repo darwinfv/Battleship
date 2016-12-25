@@ -37,6 +37,9 @@ public class Game {
     //The color of a button with the first ship of length 3 on it
     final static Color RED2 = new Color(202, 0, 7);
 
+    //The color of a button with the second ship of length 3 on it
+    final static Color RED3 = new Color(172, 1, 49)
+;
     //The color a a button which can potentially have the remaining parts of a ship placed there
     final static Color PINK = new Color(255, 107, 104);
 
@@ -254,7 +257,8 @@ public class Game {
             for (int i = 0; i < n.length; i++) {
                 if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
                         !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) /
-                        2].getBackground())) {
+                        2].getBackground())&& !RED3.equals(player[n[i]].getBackground()) && !RED3.equals(player[(n[i]
+                        + end) / 2].getBackground())) {
                     player[n[i]].setBackground(PINK);
                 }
                 else {
@@ -271,7 +275,9 @@ public class Game {
                 }
                 if(game.equals("thirdpart")) {
                     for (int i = 0; i < 64; i++) {
-
+                        if(RED3.equals(player[i].getBackground())) {
+                            player[i].setBackground(null);
+                        }
                     }
                 }
                 game = game.substring(0, 5);
@@ -305,6 +311,7 @@ public class Game {
         }
         else if(game.equals("threepart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED2);
+            player[(buttonNumber + end) / 2].setBackground(RED2);
             game = "third";
             for (int i = 0; i < 64; i++) {
                 if(PINK.equals(player[i].getBackground())) {
@@ -312,13 +319,16 @@ public class Game {
                 }
             }
         }
-        else if(game.equals("third")) {
-            player[buttonNumber].setBackground(RED);
+        else if(game.equals("third") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
+                (player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED3);
+            end = buttonNumber;
             game = "thirdpart";
             highlight(buttonNumber);
         }
         else if(game.equals("thirdpart") && PINK.equals(player[buttonNumber].getBackground())) {
-            player[buttonNumber].setBackground(RED);
+            player[buttonNumber].setBackground(RED3);
+            player[(buttonNumber + end) / 2].setBackground(RED3);
             game = "four";
             for (int i = 0; i < 64; i++) {
                 if(PINK.equals(player[i].getBackground())) {
