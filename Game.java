@@ -59,8 +59,9 @@ public class Game {
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        game = "init";
-        //init means the board is being setup
+        game = "randomize";
+        //randomize means that the opponent is placing his ships
+        //init means the board has been setup and is ready to receive commands from the user
         //twopart means the user has clicked a button for the first time and a ship will be placed there
         //three means the second ship is going to be placed next
         //threepart means that one end of the ship of length 3 has been placed
@@ -72,6 +73,8 @@ public class Game {
         //fivepart means that one end of the ship of length 5 has been placed
 
         initialize();
+        Bot.place();
+        game = "init";
         listenPlayer();
 
         //Main pane
