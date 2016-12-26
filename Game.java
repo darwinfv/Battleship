@@ -43,6 +43,9 @@ public class Game {
     //The color of a button with a ship of length 4 on it
     final static Color RED4 = new Color(234, 0, 167);
 
+    //The color of a button with a ship of length 5 on it
+    final static Color RED5 = new Color(134, 7, 139);
+
     //The color a a button which can potentially have the remaining parts of a ship placed there
     final static Color PINK = new Color(255, 107, 104);
 
@@ -64,8 +67,9 @@ public class Game {
         //third means the second ship of length 3 is going to be placed next
         //thirdpart means that one end of the second ship of length 3 has been placed
         //four means the fourth ship is going to be placed next
-        //fourpart means that one end of the hip of length 4 has been placed
+        //fourpart means that one end of the ship of length 4 has been placed
         //five means the fifth ship is going to be placed next
+        //fivepart means that one end of the ship of length 5 has been placed
 
         initialize();
         listenPlayer();
@@ -318,6 +322,22 @@ public class Game {
 
     }
 
+    //The method which returns the possible buttons for placing your ship of length 5 when the player has selected a
+    // single button
+    public static int[] findButton5(int a) {
+
+        if (a < 4 || (a > 7 && a < 12) || (a > 15 && a < 20) || (a > 23 && a < 28)) {
+            int[] n = new int[2];
+            n[0] = a + 4;
+            n[1] = a + 32;
+            return n;
+        }
+        if ((a > 3 && a < 8) || (a > 11 && a < 16) || (a > 19 && a < 24) || (a > 27 && a < 32)) {
+            int[] n = new int[2];
+        }
+
+    }
+
     //The method which invokes the appropriate findButton for the ship based on the game status
     public static void highlight(int a) {
 
@@ -475,6 +495,14 @@ public class Game {
                     player[i].setBackground(null);
                 }
             }
+        }
+        else if(game.equals("five") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
+                (player[buttonNumber].getBackground()) && !RED3.equals(player[buttonNumber].getBackground()) &&
+                !RED4.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED5);
+            end = buttonNumber;
+            game = "fivepart";
+            highlight(buttonNumber);
         }
 
     }
