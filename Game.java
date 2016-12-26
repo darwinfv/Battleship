@@ -65,6 +65,7 @@ public class Game {
         //thirdpart means that one end of the second ship of length 3 has been placed
         //four means the fourth ship is going to be placed next
         //fourpart means that one end of the hip of length 4 has been placed
+        //five means the fifth ship is going to be placed next
 
         initialize();
         listenPlayer();
@@ -172,12 +173,14 @@ public class Game {
             n[1] = a - 1;
             return n;
         }
-        int[] n = new int[4];
-        n[0] = a - 8;
-        n[1] = a - 1;
-        n[2] = a + 1;
-        n[3] = a + 8;
-        return n;
+        else {
+            int[] n = new int[4];
+            n[0] = a - 8;
+            n[1] = a - 1;
+            n[2] = a + 1;
+            n[3] = a + 8;
+            return n;
+        }
 
     }
 
@@ -237,12 +240,14 @@ public class Game {
             n[1] = a - 2;
             return n;
         }
-        int[] n = new int[4];
-        n[0] = a - 16;
-        n[1] = a - 2;
-        n[2] = a + 2;
-        n[3] = a + 16;
-        return n;
+        else {
+            int[] n = new int[4];
+            n[0] = a - 16;
+            n[1] = a - 2;
+            n[2] = a + 2;
+            n[3] = a + 16;
+            return n;
+        }
 
     }
 
@@ -267,6 +272,7 @@ public class Game {
             int[] n = new int[2];
             n[0] = a - 3;
             n[1] = a + 24;
+            return n;
         }
         if ((a > 23 && a < 27) || (a > 31 && a < 35)) {
             int[] n = new int[3];
@@ -301,12 +307,14 @@ public class Game {
             n[1] = a - 24;
             return n;
         }
-        int[] n = new int[4];
-        n[0] = a - 3;
-        n[1] = a - 24;
-        n[2] = a + 3;
-        n[3] = a + 24;
-        return n;
+        else {
+            int[] n = new int[4];
+            n[0] = a - 3;
+            n[1] = a - 24;
+            n[2] = a + 3;
+            n[3] = a + 24;
+            return n;
+        }
 
     }
 
@@ -357,13 +365,38 @@ public class Game {
             for (int i = 0; i < n.length; i++) {
                 if(Math.abs(n[i] - end) == 3) {
                     if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
-                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2].getBackground())) {
-
+                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2]
+                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2].getBackground()) && !RED3.equals
+                            (player[(n[i] + end) / 2].getBackground()) && !RED.equals(player[(n[i] + end) / 2 + 1]
+                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2 + 1].getBackground()) &&
+                            !RED3.equals(player[(n[i] + end) / 2 + 1].getBackground())) {
+                        player[n[i]].setBackground(PINK);
+                    }
+                    else {
+                        possibleCounter--;
                     }
                 }
                 if(Math.abs(n[i] - end) == 24) {
-
+                    if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
+                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2 - 4]
+                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2 - 4].getBackground()) &&
+                            !RED3.equals(player[(n[i] + end) / 2 - 4].getBackground()) && !RED.equals(player[(n[i] +
+                            end) / 2 + 4].getBackground()) && !RED2.equals(player[(n[i] + end) / 2 + 4].getBackground
+                            ()) && !RED3.equals(player[(n[i] + end) / 2 + 4].getBackground())) {
+                        player[n[i]].setBackground(PINK);
+                    }
+                    else {
+                        possibleCounter--;
+                    }
                 }
+            }
+            if(possibleCounter == 0) {
+                for (int i = 0; i < 64; i++) {
+                    if(RED4.equals(player[i].getBackground())) {
+                        player[i].setBackground(null);
+                    }
+                }
+                game = "four";
             }
         }
 
@@ -425,6 +458,23 @@ public class Game {
             end = buttonNumber;
             game = "fourpart";
             highlight(buttonNumber);
+        }
+        else if(game.equals("fourpart") && PINK.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED4);
+            if(Math.abs(buttonNumber - end) == 3) {
+                player[(buttonNumber + end) / 2].setBackground(RED4);
+                player[(buttonNumber + end) / 2 + 1].setBackground(RED4);
+            }
+            else {
+                player[(buttonNumber + end) / 2 - 4].setBackground(RED4);
+                player[(buttonNumber + end) / 2 + 4].setBackground(RED4);
+            }
+            game = "five";
+            for (int i = 0; i < 64; i++) {
+                if(PINK.equals(player[i].getBackground())) {
+                    player[i].setBackground(null);
+                }
+            }
         }
 
     }
