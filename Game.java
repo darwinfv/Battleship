@@ -121,6 +121,27 @@ public class Game {
 
     }
 
+    //The method which checks if the color of a button matches the specified color (which is the color of another
+    // button (needed for collisions and interceptions))
+    public static boolean matchingColor(JButton b) {
+        if (!RED.equals(b.getBackground()) && !RED2.equals(b.getBackground()) && !RED3.equals(b.getBackground()) &&
+                !RED4.equals(b.getBackground())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //The method which sets all the buttons' colors to null if no match can be found
+    public static void setButtons(Color c) {
+        for (int i = 0; i < 64; i++) {
+            if(c.equals(player[i].getBackground())) {
+                player[i].setBackground(null);
+            }
+        }
+    }
+
     //The method which returns the possible buttons for placing your ship of length 2 when the player has selected a
     // single button
     public static int[] findButton2(int a) {
@@ -350,7 +371,8 @@ public class Game {
 
     }
 
-    //The method which invokes the appropriate findButton for the ship based on the game status
+    //The method which invokes the appropriate findButton for the ship based on the game status and handles the
+    // coloring and uncoloring of buttons accordingly
     public static void highlight(int a) {
 
         if(game.equals("twopart")) {
@@ -363,10 +385,7 @@ public class Game {
             int[] n = findButton3(a);
             int possibleCounter = n.length;
             for (int i = 0; i < n.length; i++) {
-                if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
-                        !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) /
-                        2].getBackground()) && !RED3.equals(player[n[i]].getBackground()) && !RED3.equals(player[(n[i]
-                        + end) / 2].getBackground())) {
+                if(matchingColor(player[n[i]]) && matchingColor(player[(n[i] + end) / 2])) {
                     player[n[i]].setBackground(PINK);
                 }
                 else {
@@ -375,18 +394,10 @@ public class Game {
             }
             if(possibleCounter == 0) {
                 if(game.equals("threepart")) {
-                    for (int i = 0; i < 64; i++) {
-                        if(RED2.equals(player[i].getBackground())) {
-                            player[i].setBackground(null);
-                        }
-                    }
+                    setButtons(RED2);
                 }
                 if(game.equals("thirdpart")) {
-                    for (int i = 0; i < 64; i++) {
-                        if(RED3.equals(player[i].getBackground())) {
-                            player[i].setBackground(null);
-                        }
-                    }
+                    setButtons(RED3);
                 }
                 game = game.substring(0, 5);
             }
@@ -396,12 +407,7 @@ public class Game {
             int possibleCounter = n.length;
             for (int i = 0; i < n.length; i++) {
                 if(Math.abs(n[i] - end) == 3) {
-                    if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
-                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2]
-                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2].getBackground()) && !RED3.equals
-                            (player[(n[i] + end) / 2].getBackground()) && !RED.equals(player[(n[i] + end) / 2 + 1]
-                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2 + 1].getBackground()) &&
-                            !RED3.equals(player[(n[i] + end) / 2 + 1].getBackground())) {
+                    if(matchingColor(player[n[i]]) && matchingColor(player[(n[i] + end) / 2]) && matchingColor(player[(n[i] + end) / 2 + 1])) {
                         player[n[i]].setBackground(PINK);
                     }
                     else {
@@ -409,12 +415,7 @@ public class Game {
                     }
                 }
                 if(Math.abs(n[i] - end) == 24) {
-                    if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
-                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2 - 4]
-                            .getBackground()) && !RED2.equals(player[(n[i] + end) / 2 - 4].getBackground()) &&
-                            !RED3.equals(player[(n[i] + end) / 2 - 4].getBackground()) && !RED.equals(player[(n[i] +
-                            end) / 2 + 4].getBackground()) && !RED2.equals(player[(n[i] + end) / 2 + 4].getBackground
-                            ()) && !RED3.equals(player[(n[i] + end) / 2 + 4].getBackground())) {
+                    if(matchingColor(player[n[i]]) && matchingColor(player[(n[i] + end) / 2 - 4]) && matchingColor(player[(n[i] + end) / 2 + 4])) {
                         player[n[i]].setBackground(PINK);
                     }
                     else {
@@ -423,11 +424,7 @@ public class Game {
                 }
             }
             if(possibleCounter == 0) {
-                for (int i = 0; i < 64; i++) {
-                    if(RED4.equals(player[i].getBackground())) {
-                        player[i].setBackground(null);
-                    }
-                }
+                setButtons(RED4);
                 game = "four";
             }
         }
@@ -435,17 +432,8 @@ public class Game {
             int[] n = findButton5(a);
             int possibleCounter = n.length;
             for (int i = 0; i < n.length; i++) {
-                if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
-                        !RED3.equals(player[n[i]].getBackground()) && !RED4.equals(player[n[i]].getBackground()) &&
-                        !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) / 2]
-                        .getBackground()) && !RED3.equals(player[(n[i] + end) / 2].getBackground()) && !RED4.equals
-                        (player[(n[i] + end) / 2].getBackground()) && !RED.equals(player[((n[i] + end) / 2 + n[i]) / 2]
-                        .getBackground()) && !RED2.equals(player[((n[i] + end) / 2 + n[i]) / 2].getBackground()) &&
-                        !RED3.equals(player[((n[i] + end) / 2 + n[i]) / 2].getBackground()) && !RED4.equals(player[(
-                                (n[i] + end) / 2 + n[i]) / 2].getBackground()) && !RED.equals(player[((n[i] + end) /
-                        2 + end) / 2].getBackground()) && !RED2.equals(player[((n[i] + end) / 2 + end) / 2]
-                        .getBackground()) && !RED3.equals(player[((n[i] + end) / 2 + end) / 2].getBackground()) &&
-                        !RED4.equals(player[((n[i] + end) / 2 + end) / 2].getBackground())) {
+                if(matchingColor(player[n[i]]) && matchingColor(player[(n[i] + end) / 2]) && matchingColor(player[(
+                        (n[i] + end) / 2 + n[i]) / 2]) && matchingColor(player[((n[i] + end) / 2 + end) / 2])) {
                     player[n[i]].setBackground(PINK);
                 }
                 else {
@@ -453,11 +441,7 @@ public class Game {
                 }
             }
             if(possibleCounter == 0) {
-                for (int i = 0; i < 64; i++) {
-                    if(RED5.equals(player[i].getBackground())) {
-                        player[i].setBackground(null);
-                    }
-                }
+                setButtons(RED5);
                 game = "five";
             }
         }
@@ -475,13 +459,9 @@ public class Game {
         else if(game.equals("twopart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED);
             game = "three";
-            for (int i = 0; i < 64; i++) {
-                if(PINK.equals(player[i].getBackground())) {
-                    player[i].setBackground(null);
-                }
-            }
+            setButtons(PINK);
         }
-        else if(game.equals("three") && !RED.equals(player[buttonNumber].getBackground())) {
+        else if(game.equals("three") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED2);
             end = buttonNumber;
             game = "threepart";
@@ -491,14 +471,9 @@ public class Game {
             player[buttonNumber].setBackground(RED2);
             player[(buttonNumber + end) / 2].setBackground(RED2);
             game = "third";
-            for (int i = 0; i < 64; i++) {
-                if(PINK.equals(player[i].getBackground())) {
-                    player[i].setBackground(null);
-                }
-            }
+            setButtons(PINK);
         }
-        else if(game.equals("third") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
-                (player[buttonNumber].getBackground())) {
+        else if(game.equals("third") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED3);
             end = buttonNumber;
             game = "thirdpart";
@@ -508,14 +483,9 @@ public class Game {
             player[buttonNumber].setBackground(RED3);
             player[(buttonNumber + end) / 2].setBackground(RED3);
             game = "four";
-            for (int i = 0; i < 64; i++) {
-                if(PINK.equals(player[i].getBackground())) {
-                    player[i].setBackground(null);
-                }
-            }
+            setButtons(PINK);
         }
-        else if(game.equals("four") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
-                (player[buttonNumber].getBackground()) && !RED3.equals(player[buttonNumber].getBackground())) {
+        else if(game.equals("four") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED4);
             end = buttonNumber;
             game = "fourpart";
@@ -532,15 +502,9 @@ public class Game {
                 player[(buttonNumber + end) / 2 + 4].setBackground(RED4);
             }
             game = "five";
-            for (int i = 0; i < 64; i++) {
-                if(PINK.equals(player[i].getBackground())) {
-                    player[i].setBackground(null);
-                }
-            }
+            setButtons(PINK);
         }
-        else if(game.equals("five") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
-                (player[buttonNumber].getBackground()) && !RED3.equals(player[buttonNumber].getBackground()) &&
-                !RED4.equals(player[buttonNumber].getBackground())) {
+        else if(game.equals("five") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED5);
             end = buttonNumber;
             game = "fivepart";
@@ -552,11 +516,7 @@ public class Game {
             player[((buttonNumber + end) / 2 + buttonNumber) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + end) / 2].setBackground(RED5);
             game = "???";
-            for (int i = 0; i < 64; i++) {
-                if(PINK.equals(player[i].getBackground())) {
-                    player[i].setBackground(null);
-                }
-            }
+            setButtons(PINK);
         }
 
     }
