@@ -38,8 +38,11 @@ public class Game {
     final static Color RED2 = new Color(202, 0, 7);
 
     //The color of a button with the second ship of length 3 on it
-    final static Color RED3 = new Color(172, 1, 49)
-;
+    final static Color RED3 = new Color(172, 1, 49);
+
+    //The color of a button with a ship of length 4 on it
+    final static Color RED4 = new Color(234, 0, 167);
+
     //The color a a button which can potentially have the remaining parts of a ship placed there
     final static Color PINK = new Color(255, 107, 104);
 
@@ -61,6 +64,7 @@ public class Game {
         //third means the second ship of length 3 is going to be placed next
         //thirdpart means that one end of the second ship of length 3 has been placed
         //four means the fourth ship is going to be placed next
+        //fourpart means that one end of the hip of length 4 has been placed
 
         initialize();
         listenPlayer();
@@ -177,7 +181,7 @@ public class Game {
 
     }
 
-    //The method which returns the possible button for placing your ship of length 3 when the player has selected a
+    //The method which returns the possible buttons for placing your ship of length 3 when the player has selected a
     // single button
     public static int[] findButton3(int a) {
 
@@ -242,6 +246,70 @@ public class Game {
 
     }
 
+    //The method which returns the possible buttons for placing your ship of length 4 when the player has selected a
+    // single button
+    public static int[] findButton4(int a) {
+
+        if (a < 3 || (a > 7 && a < 11) || (a > 15 && a < 19)) {
+            int[] n = new int[2];
+            n[0] = a + 3;
+            n[1] = a + 24;
+            return n;
+        }
+        if (a == 3 || a == 4 || a == 11 || a == 12 || a == 19 || a == 20) {
+            int[] n = new int[3];
+            n[0] = a - 3;
+            n[1] = a + 3;
+            n[2] = a + 24;
+            return n;
+        }
+        if ((a > 4 && a < 8) || (a > 12 && a < 16) || (a > 20 && a < 24)) {
+            int[] n = new int[2];
+            n[0] = a - 3;
+            n[1] = a + 24;
+        }
+        if ((a > 23 && a < 27) || (a > 31 && a < 35)) {
+            int[] n = new int[3];
+            n[0] = a - 24;
+            n[1] = a + 3;
+            n[2] = a + 24;
+            return n;
+        }
+        if ((a > 28 && a < 32) || (a > 36 && a < 40)) {
+            int[] n = new int[3];
+            n[0] = a - 24;
+            n[1] = a - 3;
+            n[2] = a + 24;
+            return n;
+        }
+        if ((a > 39 && a < 43) || (a > 47 && a < 51) || (a > 55 && a < 59)) {
+            int[] n = new int[2];
+            n[0] = a - 24;
+            n[1] = a + 3;
+            return n;
+        }
+        if (a == 43 || a == 44 || a == 51 || a == 52 || a == 59 || a == 60) {
+            int[] n = new int[3];
+            n[0] = a - 3;
+            n[1] = a - 24;
+            n[2] = a + 3;
+            return n;
+        }
+        if ((a > 44 && a < 48) || (a > 52 && a < 56) || (a > 60 && a < 64)) {
+            int[] n = new int[2];
+            n[0] = a - 3;
+            n[1] = a - 24;
+            return n;
+        }
+        int[] n = new int[4];
+        n[0] = a - 3;
+        n[1] = a - 24;
+        n[2] = a + 3;
+        n[3] = a + 24;
+        return n;
+
+    }
+
     //The method which invokes the appropriate findButton for the ship based on the game status
     public static void highlight(int a) {
 
@@ -257,7 +325,7 @@ public class Game {
             for (int i = 0; i < n.length; i++) {
                 if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
                         !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) /
-                        2].getBackground())&& !RED3.equals(player[n[i]].getBackground()) && !RED3.equals(player[(n[i]
+                        2].getBackground()) && !RED3.equals(player[n[i]].getBackground()) && !RED3.equals(player[(n[i]
                         + end) / 2].getBackground())) {
                     player[n[i]].setBackground(PINK);
                 }
@@ -281,6 +349,21 @@ public class Game {
                     }
                 }
                 game = game.substring(0, 5);
+            }
+        }
+        if(game.equals("fourpart")) {
+            int[] n = findButton4(a);
+            int possibleCounter = n.length;
+            for (int i = 0; i < n.length; i++) {
+                if(Math.abs(n[i] - end) == 3) {
+                    if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
+                            !RED3.equals(player[n[i]].getBackground()) && !RED.equals(player[(n[i] + end) / 2].getBackground())) {
+
+                    }
+                }
+                if(Math.abs(n[i] - end) == 24) {
+
+                }
             }
         }
 
@@ -336,8 +419,12 @@ public class Game {
                 }
             }
         }
-        else if(game.equals("four")) {
-
+        else if(game.equals("four") && !RED.equals(player[buttonNumber].getBackground()) && !RED2.equals
+                (player[buttonNumber].getBackground()) && !RED3.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED4);
+            end = buttonNumber;
+            game = "fourpart";
+            highlight(buttonNumber);
         }
 
     }
