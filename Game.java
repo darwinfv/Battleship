@@ -326,14 +326,26 @@ public class Game {
     // single button
     public static int[] findButton5(int a) {
 
+        int[] n = new int[2];
         if (a < 4 || (a > 7 && a < 12) || (a > 15 && a < 20) || (a > 23 && a < 28)) {
-            int[] n = new int[2];
             n[0] = a + 4;
             n[1] = a + 32;
             return n;
         }
         if ((a > 3 && a < 8) || (a > 11 && a < 16) || (a > 19 && a < 24) || (a > 27 && a < 32)) {
-            int[] n = new int[2];
+            n[0] = a - 4;
+            n[1] = a + 32;
+            return n;
+        }
+        if ((a > 31 && a < 36) || (a > 39 && a < 44) || (a > 47 && a < 52) || (a > 55 && a < 60)) {
+            n[0] = a + 4;
+            n[1] = a - 32;
+            return n;
+        }
+        else {
+            n[0] = a - 4;
+            n[1] = a - 32;
+            return n;
         }
 
     }
@@ -417,6 +429,36 @@ public class Game {
                     }
                 }
                 game = "four";
+            }
+        }
+        if(game.equals("fivepart")) {
+            int[] n = findButton5(a);
+            int possibleCounter = n.length;
+            for (int i = 0; i < n.length; i++) {
+                if(!RED.equals(player[n[i]].getBackground()) && !RED2.equals(player[n[i]].getBackground()) &&
+                        !RED3.equals(player[n[i]].getBackground()) && !RED4.equals(player[n[i]].getBackground()) &&
+                        !RED.equals(player[(n[i] + end) / 2].getBackground()) && !RED2.equals(player[(n[i] + end) / 2]
+                        .getBackground()) && !RED3.equals(player[(n[i] + end) / 2].getBackground()) && !RED4.equals
+                        (player[(n[i] + end) / 2].getBackground()) && !RED.equals(player[((n[i] + end) / 2 + n[i]) / 2]
+                        .getBackground()) && !RED2.equals(player[((n[i] + end) / 2 + n[i]) / 2].getBackground()) &&
+                        !RED3.equals(player[((n[i] + end) / 2 + n[i]) / 2].getBackground()) && !RED4.equals(player[(
+                                (n[i] + end) / 2 + n[i]) / 2].getBackground()) && !RED.equals(player[((n[i] + end) /
+                        2 + end) / 2].getBackground()) && !RED2.equals(player[((n[i] + end) / 2 + end) / 2]
+                        .getBackground()) && !RED3.equals(player[((n[i] + end) / 2 + end) / 2].getBackground()) &&
+                        !RED4.equals(player[((n[i] + end) / 2 + end) / 2].getBackground())) {
+                    player[n[i]].setBackground(PINK);
+                }
+                else {
+                    possibleCounter--;
+                }
+            }
+            if(possibleCounter == 0) {
+                for (int i = 0; i < 64; i++) {
+                    if(RED5.equals(player[i].getBackground())) {
+                        player[i].setBackground(null);
+                    }
+                }
+                game = "five";
             }
         }
 
@@ -503,6 +545,18 @@ public class Game {
             end = buttonNumber;
             game = "fivepart";
             highlight(buttonNumber);
+        }
+        else if(game.equals("fivepart") && PINK.equals(player[buttonNumber].getBackground())) {
+            player[buttonNumber].setBackground(RED5);
+            player[(buttonNumber + end) / 2].setBackground(RED5);
+            player[((buttonNumber + end) / 2 + buttonNumber) / 2].setBackground(RED5);
+            player[((buttonNumber + end) / 2 + end) / 2].setBackground(RED5);
+            game = "???";
+            for (int i = 0; i < 64; i++) {
+                if(PINK.equals(player[i].getBackground())) {
+                    player[i].setBackground(null);
+                }
+            }
         }
 
     }
