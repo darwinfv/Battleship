@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.tools.ToolProvider;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,10 +54,13 @@ public class Game {
     //The button with one end of the ship
     static int end;
 
+    //Instructions
+    static JLabel instructions = new JLabel("Waiting for bot to place ships...");
+
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
-        jf.setSize(800, 500);
+        jf.setSize(820, 540);
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,16 +80,30 @@ public class Game {
         initialize();
         listenPlayer();
 
+        //Instruction pane
+        JPanel ipane = new JPanel();
+        border = BorderFactory.createTitledBorder(null, "INSTRUCTIONS", TitledBorder.CENTER, 0, null, new Color(181, 94, 25));
+        ipane.setBorder(border);
+        ipane.add(instructions);
+        ipane.setBackground(new Color(0, 200, 220));
+
         //Main pane
         JPanel pane = new JPanel(new GridBagLayout());
-        pane.setBackground(new Color(0, 250, 0));
+        pane.setBackground(new Color(41, 255, 1));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.gridy = c.gridx = 0;
         c.ipady = 100;
         pane.add(opponentPane, c);
+        c.insets = new Insets(0, 20, 0, 0);
         c.gridx++;
         pane.add(boardPane, c);
+        c.gridy++;
+        c.gridx--;
+        c.gridwidth = 2;
+        c.ipady = 10;
+        c.insets = new Insets(20, 80, 0, 80);
+        pane.add(ipane, c);
 
         //Ending code for frame
         jf.add(pane);
@@ -99,7 +118,7 @@ public class Game {
     public static void initialize() {
 
         //Setup opponent's border
-        border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(200, 0, 0));
+        border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(214, 0, 0));
         opponentPane.setBorder(border);
 
         //Setup opponent's button
