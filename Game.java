@@ -73,8 +73,6 @@ public class Game {
         //fivepart means that one end of the ship of length 5 has been placed
 
         initialize();
-        Bot.place();
-        game = "init";
         listenPlayer();
 
         //Main pane
@@ -91,6 +89,9 @@ public class Game {
         //Ending code for frame
         jf.add(pane);
         jf.setVisible(true);
+
+        Bot.place();
+        game = "init";
 
     }
 
