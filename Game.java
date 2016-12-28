@@ -60,7 +60,7 @@ public class Game {
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
-        jf.setSize(820, 540);
+        jf.setSize(800, 520);
         jf.setResizable(false);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,6 +110,7 @@ public class Game {
         jf.setVisible(true);
 
         Bot.place();
+        setInstructions("Click anywhere to place the Destroyer.");
         game = "init";
 
     }
@@ -162,6 +163,19 @@ public class Game {
             if(c.equals(player[i].getBackground())) {
                 player[i].setBackground(null);
             }
+        }
+    }
+
+    //The method which sets the instructions in the instruction box
+    public static void setInstructions(String s) {
+        if (s == null) {
+            instructions.setText("Click on one of the highlighted buttons to place the other end of the ship.");
+        }
+        else if (s.equals("1")) {
+            instructions.setText("Your ship cannot fit there. Choose another location.");
+        }
+        else {
+            instructions.setText(s);
         }
     }
 
@@ -416,6 +430,7 @@ public class Game {
                 }
             }
             if(possibleCounter == 0) {
+                setInstructions("1");
                 if(game.equals("threepart")) {
                     setButtons(RED2);
                 }
@@ -447,6 +462,7 @@ public class Game {
                 }
             }
             if(possibleCounter == 0) {
+                setInstructions("1");
                 setButtons(RED4);
                 game = "four";
             }
@@ -464,6 +480,7 @@ public class Game {
                 }
             }
             if(possibleCounter == 0) {
+                setInstructions("1");
                 setButtons(RED5);
                 game = "five";
             }
@@ -477,41 +494,48 @@ public class Game {
         if(game.equals("init")) {
             player[buttonNumber].setBackground(RED);
             game = "twopart";
+            setInstructions(null);
             highlight(buttonNumber);
         }
         else if(game.equals("twopart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED);
             game = "three";
+            setInstructions("Click anywhere to place the Submarine.");
             setButtons(PINK);
         }
         else if(game.equals("three") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED2);
             end = buttonNumber;
             game = "threepart";
+            setInstructions(null);
             highlight(buttonNumber);
         }
         else if(game.equals("threepart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED2);
             player[(buttonNumber + end) / 2].setBackground(RED2);
             game = "third";
+            setInstructions("Click anywhere to place the Cruiser.");
             setButtons(PINK);
         }
         else if(game.equals("third") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED3);
             end = buttonNumber;
             game = "thirdpart";
+            setInstructions(null);
             highlight(buttonNumber);
         }
         else if(game.equals("thirdpart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED3);
             player[(buttonNumber + end) / 2].setBackground(RED3);
             game = "four";
+            setInstructions("Click anywhere to place the Battlsehip.");
             setButtons(PINK);
         }
         else if(game.equals("four") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED4);
             end = buttonNumber;
             game = "fourpart";
+            setInstructions(null);
             highlight(buttonNumber);
         }
         else if(game.equals("fourpart") && PINK.equals(player[buttonNumber].getBackground())) {
@@ -525,12 +549,14 @@ public class Game {
                 player[(buttonNumber + end) / 2 + 4].setBackground(RED4);
             }
             game = "five";
+            setInstructions("Click anywhere to place the Carrier.");
             setButtons(PINK);
         }
         else if(game.equals("five") && matchingColor(player[buttonNumber])) {
             player[buttonNumber].setBackground(RED5);
             end = buttonNumber;
             game = "fivepart";
+            setInstructions(null);
             highlight(buttonNumber);
         }
         else if(game.equals("fivepart") && PINK.equals(player[buttonNumber].getBackground())) {
@@ -538,8 +564,15 @@ public class Game {
             player[(buttonNumber + end) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + buttonNumber) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + end) / 2].setBackground(RED5);
-            game = "???";
             setButtons(PINK);
+            int x = Bot.random(2);
+            if(x == 0) {
+                game = "player";
+            }
+            else {
+                game = "opponent";
+            }
+            //dfasadf
         }
 
     }
