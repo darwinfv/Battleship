@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.tools.ToolProvider;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,13 +33,13 @@ public class Game {
     static Border border;
 
     //The color of a button with a ship of length 2 on it
-    final static Color RED = new Color(250, 55, 52);
+    final static Color RED = new Color(250, 165, 42);
 
     //The color of a button with the first ship of length 3 on it
-    final static Color RED2 = new Color(202, 0, 7);
+    final static Color RED2 = new Color(255, 27, 30);
 
     //The color of a button with the second ship of length 3 on it
-    final static Color RED3 = new Color(172, 1, 49);
+    final static Color RED3 = new Color(217, 0, 57);
 
     //The color of a button with a ship of length 4 on it
     final static Color RED4 = new Color(234, 0, 167);
@@ -49,7 +48,7 @@ public class Game {
     final static Color RED5 = new Color(134, 7, 139);
 
     //The color a a button which can potentially have the remaining parts of a ship placed there
-    final static Color PINK = new Color(255, 107, 104);
+    final static Color PINK = new Color(255, 162, 165);
 
     //The button with one end of the ship
     static int end;
@@ -125,13 +124,9 @@ public class Game {
         //Setup opponent's button
         for(int i = 0; i < 64; i++) {
             opponent[i] = new JButton(" ");
-            opponent[i].addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
             opponentPane.add(opponent[i]);
         }
+        Bot.listenOpponent();
 
         //Setup player's border
         border = BorderFactory.createMatteBorder(20, 20, 20, 20, new Color(0, 200, 220));
@@ -572,7 +567,7 @@ public class Game {
             else {
                 game = "opponent";
             }
-            //dfasadf
+            Play.choose();
         }
 
     }
