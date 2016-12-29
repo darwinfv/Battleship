@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,6 +18,9 @@ public class Bot extends Game {
 
     //The array that keeps track of what each button of the opponent's board refers to
     static int[] pieces = new int[64];
+
+    //The ArrayList that keeps track of which positions the bot has attacked
+    static ArrayList<Integer> options = new ArrayList<>();
 
     //The method which randomly places ships to the opponent's board
     public static void place() {
@@ -94,11 +98,7 @@ public class Bot extends Game {
             }
         } while (count != 4);
 
-        try {
-            TimeUnit.MILLISECONDS.sleep(random(3000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Play.delay();
 
     }
 
@@ -117,6 +117,30 @@ public class Bot extends Game {
         return r;
     }
 
+    //The method which controls the bot's attacking of the player
+    public static void attack() {
+        int x;
+        while(true) {
+            x = random(64);
+            if(-1 == options.indexOf(x)) {
+                break;
+            }
+        }
+        options.add(x);
+        Play.botMoves++;
+        if(matchingColor(player[x])) {
+            setInstructions("The bot missed your ships! Play your turn now.");
+            player[x].setBackground(GREY);
+            Play.botMiss++;
+        }
+        else {
+            setInstructions("The bot hit your ship! Attack him now!");
+            player[x].setBackground(ORANGE);
+            Play.botHit++;
+        }
+        game = "player";
+    }
+
     //The method which does the actual work when a button is selected
     public static void buttonMash(int buttonNumber) {
 
@@ -125,14 +149,20 @@ public class Bot extends Game {
                 setInstructions("You have already attacked that location. Choose another.");
             }
             else {
+                Play.playerMoves++;
                 if(pieces[buttonNumber] != 0) {
                     setInstructions("You hit the opponent's ship!");
+                    pieces[buttonNumber] *= -1;
                     opponent[buttonNumber].setBackground(ORANGE);
+                    Play.playerHit++;
                 }
                 else {
-                    setInstructions("You missed the opponent.");
+                    setInstructions("You missed the opponent's ships!");
                     opponent[buttonNumber].setBackground(GREY);
+                    Play.playerMiss++;
                 }
+                game = "opponent";
+                Play.delay2();
             }
         }
 

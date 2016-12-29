@@ -4,6 +4,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Darwin Vaz on 12/20/2016.
@@ -75,6 +76,8 @@ public class Game {
         //fourpart means that one end of the ship of length 4 has been placed
         //five means the fifth ship is going to be placed next
         //fivepart means that one end of the ship of length 5 has been placed
+        //player means it is the player's turn
+        //opponent means it is the bot's turn
 
         initialize();
         listenPlayer();
@@ -144,7 +147,7 @@ public class Game {
     // button (needed for collisions and interceptions))
     public static boolean matchingColor(JButton b) {
         if (!RED.equals(b.getBackground()) && !RED2.equals(b.getBackground()) && !RED3.equals(b.getBackground()) &&
-                !RED4.equals(b.getBackground())) {
+                !RED4.equals(b.getBackground()) && !RED5.equals(b.getBackground())) {
             return true;
         }
         else {
@@ -563,11 +566,13 @@ public class Game {
             int x = Bot.random(2);
             if(x == 0) {
                 game = "player";
+                setInstructions("You get the first shot. Click on the opponent's board to attack.");
             }
             else {
                 game = "opponent";
+                setInstructions("The bot begins the game.");
+                Play.delay2();
             }
-            Play.choose();
         }
 
     }
