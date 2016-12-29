@@ -13,8 +13,11 @@ public class Bot extends Game {
     //The color of a button if the player missed a ship
     final static Color GREY = new Color(162, 162, 162);
 
-    //The color of a button where the ship has been hit
+    //The color of a button where the opponent's ship has been hit
     final static Color ORANGE = new Color(200, 100, 21);
+
+    //The color of a button where the player's ship has been hit
+    final static Color BLUE = new Color(0, 2, 94);
 
     //The array that keeps track of what each button of the opponent's board refers to
     static int[] pieces = new int[64];
@@ -119,6 +122,8 @@ public class Bot extends Game {
 
     //The method which controls the bot's attacking of the player
     public static void attack() {
+
+        game = "opponent";
         int x;
         while(true) {
             x = random(64);
@@ -129,16 +134,17 @@ public class Bot extends Game {
         options.add(x);
         Play.botMoves++;
         if(matchingColor(player[x])) {
-            setInstructions("The bot missed your ships! Play your turn now.");
+            setInstructions(" The bot missed your ships!");
             player[x].setBackground(GREY);
             Play.botMiss++;
         }
         else {
-            setInstructions("The bot hit your ship! Attack him now!");
-            player[x].setBackground(ORANGE);
+            setInstructions(" The bot hit your ship!");
+            player[x].setBackground(BLUE);
             Play.botHit++;
         }
         game = "player";
+
     }
 
     //The method which does the actual work when a button is selected
@@ -161,8 +167,7 @@ public class Bot extends Game {
                     opponent[buttonNumber].setBackground(GREY);
                     Play.playerMiss++;
                 }
-                game = "opponent";
-                Play.delay2();
+                Bot.attack();
             }
         }
 

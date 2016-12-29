@@ -34,7 +34,7 @@ public class Game {
     static Border border;
 
     //The color of a button with a ship of length 2 on it
-    final static Color RED = new Color(250, 165, 42);
+    final static Color RED = new Color(250, 82, 15);
 
     //The color of a button with the first ship of length 3 on it
     final static Color RED2 = new Color(255, 27, 30);
@@ -171,6 +171,9 @@ public class Game {
         }
         else if (s.equals("1")) {
             instructions.setText("Your ship cannot fit there. Choose another location.");
+        }
+        else if (" ".equals(s.substring(0, 1))) {
+            instructions.setText(instructions.getText() + s);
         }
         else {
             instructions.setText(s);
@@ -563,16 +566,7 @@ public class Game {
             player[((buttonNumber + end) / 2 + buttonNumber) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + end) / 2].setBackground(RED5);
             setButtons(PINK);
-            int x = Bot.random(2);
-            if(x == 0) {
-                game = "player";
-                setInstructions("You get the first shot. Click on the opponent's board to attack.");
-            }
-            else {
-                game = "opponent";
-                setInstructions("The bot begins the game.");
-                Play.delay2();
-            }
+            Play.beginGame();
         }
 
     }

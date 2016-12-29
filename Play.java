@@ -14,12 +14,17 @@ public class Play extends Game {
     static int botMiss = 0;
     static int botMoves = 0;
 
-    //The method which decides whose turn it is to play
-    public static void choose() {
+    //The method which begins the game and flow of control
+    public static void beginGame() {
 
-        if(game.equals("opponent")) {
-            setInstructions("Waiting for bot to make move...");
-            delay();
+        int x = Bot.random(2);
+        if(x == 0) {
+            game = "player";
+            setInstructions("You get the first shot. Click on the opponent's board to attack.");
+        }
+        else {
+            setInstructions("The bot begins the game.");
+            Play.delay();
             Bot.attack();
         }
 
@@ -32,16 +37,6 @@ public class Play extends Game {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    //The method which delays the game by exactly 2 seconds and invokes choose
-    public static void delay2() {
-        try {
-            TimeUnit.MILLISECONDS.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        choose();
     }
 
 }
