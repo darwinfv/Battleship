@@ -57,6 +57,9 @@ public class Game {
     //Instructions
     static JLabel instructions = new JLabel("Waiting for bot to place ships...");
 
+    //Ship counters
+    static JLabel count;
+
     public static void main(String[] args) {
 
         //Creation of the main frame (game screen)
@@ -89,12 +92,23 @@ public class Game {
         ipane.add(instructions);
         ipane.setBackground(new Color(0, 200, 220));
 
+        //Ship counters
+        JLabel ship = new JLabel("Ships: 5", SwingConstants.LEFT);
+        ship.setFont(new Font("Arial", Font.BOLD, 14));
+        JLabel ships = new JLabel("Ships: 0", SwingConstants.RIGHT);
+        ships.setFont(new Font("Arial", Font.BOLD, 14));
+
         //Main pane
         JPanel pane = new JPanel(new GridBagLayout());
         pane.setBackground(new Color(41, 255, 1));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.gridy = c.gridx = 0;
+        pane.add(ship, c);
+        c.gridx++;
+        pane.add(ships, c);
+        c.gridx--;
+        c.gridy++;
         c.ipady = 100;
         pane.add(opponentPane, c);
         c.insets = new Insets(0, 20, 0, 0);
