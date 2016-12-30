@@ -17,7 +17,7 @@ public class Bot extends Game {
     final static Color ORANGE = new Color(200, 100, 21);
 
     //The color of a button where the player's ship has been hit
-    final static Color BLUE = new Color(0, 2, 94);
+    final static Color BLUE = new Color(32, 32, 31);
 
     //The array that keeps track of what each button of the opponent's board refers to
     static int[] pieces = new int[64];
@@ -34,11 +34,26 @@ public class Bot extends Game {
         int count = 0;
 
         //Places ship 1
-        pieces[n = random(64)] = 2;
+        pieces[n = random(64)] = 1;
         a = findButton2(n);
-        pieces[a[random(a.length)]] = 2;
+        pieces[a[random(a.length)]] = 1;
 
-        //Places ship 2 and 3
+        //Places ship 2
+        do {
+            n = random(64);
+            a = findButton3(n);
+            for (int i = 0; i < a.length; i++) {
+                if (pieces[n] == 0 && pieces[a[i]] == 0 && pieces[(a[i] + n) / 2] == 0) {
+                    pieces[n] = 2;
+                    pieces[a[i]] = 2;
+                    pieces[(a[i] + n) / 2] = 2;
+                    count++;
+                    break;
+                }
+            }
+        } while (count != 1);
+
+        //Places ship 3
         do {
             n = random(64);
             a = findButton3(n);
@@ -123,27 +138,27 @@ public class Bot extends Game {
     //The method which controls the bot's attacking of the player
     public static void attack() {
 
-        game = "opponent";
-        int x;
-        while(true) {
-            x = random(64);
-            if(-1 == options.indexOf(x)) {
-                break;
+        if(game.equals("opponent")) {
+            int x;
+            while (true) {
+                x = random(64);
+                if (-1 == options.indexOf(x)) {
+                    break;
+                }
             }
+            options.add(x);
+            Play.botMoves++;
+            if (matchingColor(player[x])) {
+                setInstructions(" The bot missed your ships!");
+                player[x].setBackground(GREY);
+                Play.botMiss++;
+            } else {
+                setInstructions(" The bot hit your ship!");
+                player[x].setBackground(BLUE);
+                Play.botHit++;
+            }
+            game = "player";
         }
-        options.add(x);
-        Play.botMoves++;
-        if(matchingColor(player[x])) {
-            setInstructions(" The bot missed your ships!");
-            player[x].setBackground(GREY);
-            Play.botMiss++;
-        }
-        else {
-            setInstructions(" The bot hit your ship!");
-            player[x].setBackground(BLUE);
-            Play.botHit++;
-        }
-        game = "player";
 
     }
 
@@ -158,16 +173,19 @@ public class Bot extends Game {
                 Play.playerMoves++;
                 if(pieces[buttonNumber] != 0) {
                     setInstructions("You hit the opponent's ship!");
-                    pieces[buttonNumber] *= -1;
                     opponent[buttonNumber].setBackground(ORANGE);
                     Play.playerHit++;
+                    Play.checkOpponent(buttonNumber);
                 }
                 else {
                     setInstructions("You missed the opponent's ships!");
                     opponent[buttonNumber].setBackground(GREY);
                     Play.playerMiss++;
                 }
-                Bot.attack();
+                if(!game.equals("playerwins")) {
+                    game = "opponent";
+                    Bot.attack();
+                }
             }
         }
 

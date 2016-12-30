@@ -58,7 +58,10 @@ public class Game {
     static JLabel instructions = new JLabel("Waiting for bot to place ships...");
 
     //Ship counters
-    static JLabel count;
+    static int playerCount = 0;
+    static int opponentCount = 5;
+    static JLabel opponentShip = new JLabel("Ships: " + opponentCount, SwingConstants.LEFT);
+    static JLabel playerShip = new JLabel("Ships: " + playerCount, SwingConstants.RIGHT);
 
     public static void main(String[] args) {
 
@@ -93,10 +96,8 @@ public class Game {
         ipane.setBackground(new Color(0, 200, 220));
 
         //Ship counters
-        JLabel ship = new JLabel("Ships: 5", SwingConstants.LEFT);
-        ship.setFont(new Font("Arial", Font.BOLD, 14));
-        JLabel ships = new JLabel("Ships: 0", SwingConstants.RIGHT);
-        ships.setFont(new Font("Arial", Font.BOLD, 14));
+        playerShip.setFont(new Font("Arial", Font.BOLD, 14));
+        opponentShip.setFont(new Font("Arial", Font.BOLD, 14));
 
         //Main pane
         JPanel pane = new JPanel(new GridBagLayout());
@@ -104,9 +105,9 @@ public class Game {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.gridy = c.gridx = 0;
-        pane.add(ship, c);
+        pane.add(opponentShip, c);
         c.gridx++;
-        pane.add(ships, c);
+        pane.add(playerShip, c);
         c.gridx--;
         c.gridy++;
         c.ipady = 100;
@@ -514,6 +515,7 @@ public class Game {
         }
         else if(game.equals("twopart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED);
+            playerShip.setText("Ships: " + ++playerCount);
             game = "three";
             setInstructions("Click anywhere to place the Submarine.");
             setButtons(PINK);
@@ -528,6 +530,7 @@ public class Game {
         else if(game.equals("threepart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED2);
             player[(buttonNumber + end) / 2].setBackground(RED2);
+            playerShip.setText("Ships: " + ++playerCount);
             game = "third";
             setInstructions("Click anywhere to place the Cruiser.");
             setButtons(PINK);
@@ -542,6 +545,7 @@ public class Game {
         else if(game.equals("thirdpart") && PINK.equals(player[buttonNumber].getBackground())) {
             player[buttonNumber].setBackground(RED3);
             player[(buttonNumber + end) / 2].setBackground(RED3);
+            playerShip.setText("Ships: " + ++playerCount);
             game = "four";
             setInstructions("Click anywhere to place the Battlsehip.");
             setButtons(PINK);
@@ -563,6 +567,7 @@ public class Game {
                 player[(buttonNumber + end) / 2 - 4].setBackground(RED4);
                 player[(buttonNumber + end) / 2 + 4].setBackground(RED4);
             }
+            playerShip.setText("Ships: " + ++playerCount);
             game = "five";
             setInstructions("Click anywhere to place the Carrier.");
             setButtons(PINK);
@@ -579,6 +584,7 @@ public class Game {
             player[(buttonNumber + end) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + buttonNumber) / 2].setBackground(RED5);
             player[((buttonNumber + end) / 2 + end) / 2].setBackground(RED5);
+            playerShip.setText("Ships: " + ++playerCount);
             setButtons(PINK);
             Play.beginGame();
         }
