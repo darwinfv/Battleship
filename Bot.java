@@ -154,6 +154,7 @@ public class Bot extends Game {
                 Play.botMiss++;
             } else {
                 setInstructions(" The bot hit your ship!");
+                Play.checkPlayer(x);
                 player[x].setBackground(BLUE);
                 Play.botHit++;
             }
@@ -165,7 +166,7 @@ public class Bot extends Game {
     //The method which does the actual work when a button is selected
     public static void buttonMash(int buttonNumber) {
 
-        if(game.equals("player")) {
+        if(game.equals("player") && !game.equals("opponentwins")) {
             if(GREY.equals(opponent[buttonNumber].getBackground()) || ORANGE.equals(opponent[buttonNumber].getBackground())) {
                 setInstructions("You have already attacked that location. Choose another.");
             }
