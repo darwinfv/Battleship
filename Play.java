@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -84,7 +86,8 @@ public class Play extends Game {
         }
         if(playerCount == 0) {
             game = "opponentwins";
-            setInstructions("YOU LOST!");
+            setInstructions("YOU LOST");
+            endGame();
         }
 
     }
@@ -126,6 +129,7 @@ public class Play extends Game {
         if(opponentCount == 0) {
             game = "playerwins";
             setInstructions("YOU WON!");
+            endGame();
         }
 
     }
@@ -154,6 +158,26 @@ public class Play extends Game {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    //The method which displays the endgame statistics
+    public static void endGame() {
+
+        jf.getContentPane().removeAll();
+
+        JLabel screen = new JLabel(instructions.getText(), SwingConstants.CENTER);
+        screen.setFont(new Font("Helvetica", Font.BOLD, 100));
+
+        JPanel pane = new JPanel(new GridBagLayout());
+        pane.setBackground(new Color(41, 255, 1));
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.gridy = c.gridx = 0;
+        pane.add(screen);
+
+        jf.add(pane);
+
+
     }
 
 }
