@@ -118,8 +118,6 @@ public class Bot extends Game {
 
         Play.delay();
 
-        test();
-
     }
 
     //The method which tests the bot to see if it correctly randomized placing of the ships
