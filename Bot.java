@@ -25,6 +25,9 @@ public class Bot extends Game {
     //The ArrayList that keeps track of which positions the bot has attacked
     static ArrayList<Integer> options = new ArrayList<>();
 
+    //The array that keeps track of a partially destroyed ship for the bot
+    static int[] destroy;
+
     //The method which randomly places ships to the opponent's board
     public static void place() {
 
@@ -140,8 +143,15 @@ public class Bot extends Game {
 
         if(game.equals("opponent")) {
             int x;
+            int count = 0;
             while (true) {
-                x = random(64);
+                if (destroy != null && count < 10) {
+                    count++;
+                    x = destroy[random(destroy.length)];
+                }
+                else {
+                    x = random(64);
+                }
                 if (-1 == options.indexOf(x)) {
                     break;
                 }
@@ -157,6 +167,7 @@ public class Bot extends Game {
                 Play.checkPlayer(x);
                 player[x].setBackground(BLUE);
                 Play.botHit++;
+                destroy = findButton2(x);
             }
             game = "player";
         }

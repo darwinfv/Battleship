@@ -168,15 +168,46 @@ public class Play extends Game {
         JLabel screen = new JLabel(instructions.getText(), SwingConstants.CENTER);
         screen.setFont(new Font("Helvetica", Font.BOLD, 100));
 
+        JPanel statPane = new JPanel(new GridLayout(4, 1));
+        statPane.setBackground(new Color(41, 255, 1));
+        JPanel statPane2 = new JPanel(new GridLayout(4, 1));
+        statPane2.setBackground(new Color(41, 255, 1));
+        JLabel[] stats = new JLabel[8];
+        stats[0] = new JLabel("Opponent", SwingConstants.CENTER);
+        stats[0].setFont(new Font("Arial", Font.BOLD, 24));
+        stats[1] = new JLabel("Player", SwingConstants.RIGHT);
+        stats[1].setFont(new Font("Arial", Font.BOLD, 24));
+        stats[2] = new JLabel("Hits: " + botHit, SwingConstants.LEFT);
+        stats[4] = new JLabel("Misses: " + botMiss, SwingConstants.LEFT);
+        stats[6] = new JLabel("Hit Percentage: " + (botHit * 100 / botMoves) + "%", SwingConstants.LEFT);
+        stats[3] = new JLabel("Hits: " + playerHit, SwingConstants.RIGHT);
+        stats[5] = new JLabel("Misses: " + playerMiss, SwingConstants.RIGHT);
+        stats[7] = new JLabel("Hit Percentage: " + (playerHit * 100 / playerMoves) + "%", SwingConstants.RIGHT);
+        for (int i = 0; i < 8; i++) {
+            if(i % 2 == 0) {
+                statPane.add(stats[i]);
+            }
+            else {
+                statPane2.add(stats[i]);
+            }
+        }
+
         JPanel pane = new JPanel(new GridBagLayout());
         pane.setBackground(new Color(41, 255, 1));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.gridy = c.gridx = 0;
-        pane.add(screen);
+        c.gridwidth = 2;
+        pane.add(screen, c);
+        c.gridwidth = 1;
+        c.gridy++;
+        c.insets = new Insets(20, 60, 0, 0);
+        pane.add(statPane, c);
+        c.gridx++;
+        c.insets = new Insets(20, 0, 0, 60);
+        pane.add(statPane2, c);
 
         jf.add(pane);
-
 
     }
 
